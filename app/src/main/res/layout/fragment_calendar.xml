@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:background="@color/background_color">
+
+        <TextView
+            android:id="@+id/tvReserveDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="예약하는 날"
+            android:background="@drawable/red_rounded_box"
+            android:padding="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="8dp"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/tvReservedSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="예약한 일정"
+            android:background="@drawable/blue_rounded_box"
+            android:padding="8dp"
+            android:layout_toEndOf="@id/tvReserveDay"
+            android:layout_marginEnd="8dp"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnAddReservation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="예약 추가"
+            android:background="@drawable/green_rounded_box"
+            android:padding="8dp"
+            android:layout_alignParentEnd="true"
+            android:textColor="@android:color/white" />
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="0dp"
+            app:mcv_selectionColor="@color/teal_200"
+            app:mcv_showOtherDates="all" />
+
+
+</RelativeLayout>

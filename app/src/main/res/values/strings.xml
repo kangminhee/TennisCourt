@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">tennis</string>
+    <string name="title_courts">Tennis Courts</string>
+    <string name="title_map">Tennis Court Map</string>
+    <string name="title_starred">Starred Courts</string>
+    <string name="title_calnedar">Reservation Calendar</string>
+    <string name="title_user">User</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
