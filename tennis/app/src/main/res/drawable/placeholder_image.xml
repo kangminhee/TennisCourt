@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:orientation="horizontal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- 테니스 공 바깥 원 -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM12,20c-4.41,0 -8,-3.59 -8,-8s3.59,-8 8,-8 8,3.59 8,8 -3.59,8 -8,8z" />
+
+    <!-- 테니스 공 안의 흰색 곡선 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M14.95,9.05c0.39,1.56 0.64,3.17 0.75,4.79 -0.73,1.73 -1.96,3.16 -3.55,4.12 1.4,-1.03 2.41,-2.72 2.41,-4.66s-1.01,-3.63 -2.41,-4.66c1.58,0.96 2.82,2.39 3.55,4.12 -0.11,1.62 -0.36,3.23 -0.75,4.79z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M9.05,14.95c-0.39,-1.56 -0.64,-3.17 -0.75,-4.79 0.73,-1.73 1.96,-3.16 3.55,-4.12 -1.4,1.03 -2.41,2.72 -2.41,4.66s1.01,3.63 2.41,4.66c-1.58,-0.96 -2.82,-2.39 -3.55,-4.12 0.11,-1.62 0.36,-3.23 0.75,-4.79z" />
+</vector>
+
