@@ -3,17 +3,16 @@ package com.example.tennis.ui.starred
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.tennis.R
 import com.example.tennis.data.SharedPreferencesHelper
-import com.example.tennis.ui.courts.placeholder.PlaceholderContent.PlaceholderItem
+import com.example.tennis.ui.courts.placeholder.PlaceholderContent
 import com.example.tennis.databinding.FragmentStarredBinding
 
 class MyStarredCourtRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>,
+    private val values: List<PlaceholderContent.PlaceholderItem>,
     private val context: Context
 ) : RecyclerView.Adapter<MyStarredCourtRecyclerViewAdapter.ViewHolder>() {
 
@@ -30,8 +29,8 @@ class MyStarredCourtRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.nameView.text = item.place
+        holder.areaView.text = item.area
 
         val isStarred = SharedPreferencesHelper.isCourtStarred(context, item.id)
         holder.starButton.setImageResource(if (isStarred) R.drawable.ic_notifications_black_24dp else R.drawable.ic_notifications_white_24dp)
@@ -48,7 +47,7 @@ class MyStarredCourtRecyclerViewAdapter(
 //                holder.starButton.setImageResource(R.drawable.ic_notifications_white_24dp)
             }
             notifyItemChanged(position)
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
         }
     }
 
@@ -57,12 +56,12 @@ class MyStarredCourtRecyclerViewAdapter(
 
     inner class ViewHolder(binding: FragmentStarredBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
+        val nameView: TextView = binding.itemNumber
+        val areaView: TextView = binding.content
         val starButton: ImageButton = binding.starBtn
 
         override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+            return super.toString() + " '" + areaView.text + "'"
         }
     }
 

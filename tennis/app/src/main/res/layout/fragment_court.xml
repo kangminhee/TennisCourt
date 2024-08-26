@@ -36,7 +36,7 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/text_court_info"
+            android:id="@+id/text_court_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이건 테스트고" />
@@ -59,8 +59,8 @@
             android:id="@+id/court_btn_reserv"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:textSize="10dp"
-            android:text="예약하기" />
+            android:textSize="5dp"
+            android:text="예약 사이트로 이동" />
 
     </LinearLayout>
 </LinearLayout>
