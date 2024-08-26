@@ -8,13 +8,15 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.tennis.R
-import com.example.tennis.data.SharedPreferencesHelper
+
 import com.example.tennis.ui.courts.placeholder.PlaceholderContent.PlaceholderItem
+import com.example.tennis.data.SharedPreferencesHelper
 import com.example.tennis.databinding.FragmentCourtBinding
 
 class MyCourtRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>,
+    private val places: List<PlaceholderItem>,
     private val context: Context
+//    private val onItemClick: (String) -> Unit
 ) : RecyclerView.Adapter<MyCourtRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,38 +27,45 @@ class MyCourtRecyclerViewAdapter(
                 false
             )
         )
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        val item = places[position]
+        holder.nameView.text = item.place
+        holder.areaView.text = item.area
 
         val isStarred = SharedPreferencesHelper.isCourtStarred(context, item.id)
         holder.starButton.setImageResource(if (isStarred) R.drawable.ic_notifications_black_24dp else R.drawable.ic_notifications_white_24dp)
 
         // 별 모양 버튼 클릭 시 즐겨찾기 추가/제거 로직
         holder.starButton.setOnClickListener {
-            if (isStarred) {
-                SharedPreferencesHelper.removeCourtFromStars(context, item.id)
-                holder.starButton.setImageResource(R.drawable.ic_notifications_black_24dp)
-            } else {
+            val newStarredState = !isStarred
+
+            if (newStarredState) {
                 SharedPreferencesHelper.addCourtToStars(context, item.id)
-                holder.starButton.setImageResource(R.drawable.ic_notifications_white_24dp)
+//                holder.starButton.setImageResource(R.drawable.ic_notifications_black_24dp)
+            } else {
+                SharedPreferencesHelper.removeCourtFromStars(context, item.id)
+//                holder.starButton.setImageResource(R.drawable.ic_notifications_white_24dp)
             }
+            notifyItemChanged(position)
+            notifyDataSetChanged()
         }
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = places.size
 
     inner class ViewHolder(binding: FragmentCourtBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.textCourtName
-        val contentView: TextView = binding.textCourtInfo
+        val nameView: TextView = binding.textCourtName
+        val areaView: TextView = binding.textCourtArea
         val starButton: ImageButton = binding.starBtn
 
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
-        }
+
+//        override fun toString(): String {
+//            return super.toString() + " '" + contentView.text + "'"
+//        }
     }
+
 }

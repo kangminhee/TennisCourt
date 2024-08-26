@@ -23,14 +23,12 @@ class CourtFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_court_list, container, false)
 
-        // RecyclerView 참조 및 설정
         val recyclerView = view.findViewById<RecyclerView>(R.id.court_list)
         with(recyclerView) {
             layoutManager = when {
@@ -39,7 +37,6 @@ class CourtFragment : Fragment() {
             }
             adapter = MyCourtRecyclerViewAdapter(PlaceholderContent.ITEMS, requireContext())
         }
-
         return view
     }
 
