@@ -114,7 +114,7 @@ class MapViewFragment : Fragment(), OnMapReadyCallback {
     )
 
     private fun fetchTennisCourtData() {
-        val url = "http://openapi.seoul.go.kr:8088/576e4e6c6779656c36355368686444/json/ListPublicReservationSport/1/200/테니스장"
+        val url = "http://openapi.seoul.go.kr:8088/576e4e6c6779656c36355368686444/json/ListPublicReservationSport/1/300/테니스장"
 
         GlobalScope.launch(Dispatchers.IO) {
             try {

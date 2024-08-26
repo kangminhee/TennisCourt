@@ -1,18 +1,34 @@
 package com.example.tennis.ui.calendar
 
+import CalendarViewModel
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Delete
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.PrimaryKey
+import androidx.room.Query
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import com.prolificinteractive.materialcalendarview.*
 import java.util.*
 import com.example.tennis.R
+import org.threeten.bp.LocalDate
 
 class CalendarFragment : Fragment(), OnDateSelectedListener {
 
@@ -45,7 +61,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         viewModel.reservations.observe(viewLifecycleOwner) {
             updateCalendarView()
         }
-
+        viewModel.getAllReservationsForDebug()
         updateCalendarView()
     }
 
@@ -79,14 +95,22 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 val isReservationDay = radioGroup.checkedRadioButtonId == R.id.rbReservationDate
                 val memo = etMemo.text.toString()
 
-                val reservationInfo = ReservationInfo(hour, minute, courtNumber, isReservationDay, memo)
-                viewModel.addReservation(date, reservationInfo)
+                val reservationInfo = ReservationInfo(
+                    date = LocalDate.of(date.year, date.month, date.day),
+                    hour = hour,
+                    minute = minute,
+                    courtNumber = courtNumber,
+                    isReservationDay = isReservationDay,
+                    memo = memo
+                )
+                viewModel.addReservation(reservationInfo)
 
                 updateCalendarView()
             }
             .setNegativeButton("취소", null)
             .show()
     }
+
     private fun showSavedReservationDialog(reservationInfo: ReservationInfo) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_show_reservation, null)
         val tvTime = dialogView.findViewById<TextView>(R.id.tvShowReservationTime)
@@ -96,7 +120,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         val btnClose = dialogView.findViewById<Button>(R.id.btnClose)
 
         // 예약 정보 설정
-        tvTime.text = "시간: ${reservationInfo.hour}:${reservationInfo.minute}"
+        tvTime.text = "시간: ${reservationInfo.hour}:${String.format("%02d", reservationInfo.minute)}"
         tvCourtNumber.text = "코트 번호: ${reservationInfo.courtNumber}"
         tvType.text = "예약 유형: ${if (reservationInfo.isReservationDay) "예약일" else "예매일"}"
         tvMemo.text = "메모: ${reservationInfo.memo}"
@@ -115,29 +139,83 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
     private fun updateCalendarView() {
         calendarView.removeDecorators()
 
-        val reservationDays = viewModel.getAllReservations().filter { it.value.isReservationDay }.keys
-        val bookingDays = viewModel.getAllReservations().filter { !it.value.isReservationDay }.keys
-
-        calendarView.addDecorator(EventDecorator(Color.BLUE, reservationDays))
-        calendarView.addDecorator(EventDecorator(Color.RED, bookingDays))
+        viewModel.getAllReservations().forEach { (date, info) ->
+            calendarView.addDecorator(EventDecorator(
+                if (info.isReservationDay) Color.BLUE else Color.RED,
+                listOf(date)
+            ))
+        }
     }
 
     override fun onDateSelected(widget: MaterialCalendarView, date: CalendarDay, selected: Boolean) {
-        val reservationInfo = viewModel.getReservation(date)
-        if (reservationInfo != null) {
-            // 예약 정보가 있을 때는 저장된 예약 정보를 보여주는 다이얼로그를 띄움
+        Log.d("CalendarFragment", "onDateSelected: $date")
+        viewModel.getReservation(date)?.let { reservationInfo ->
+            Log.d("CalendarFragment", "Reservation found: $reservationInfo")
             showSavedReservationDialog(reservationInfo)
-        } else {
-            // 예약 정보가 없을 때는 새 예약을 추가하는 다이얼로그를 띄움
+        } ?: run {
+            Log.d("CalendarFragment", "No reservation found, showing new reservation dialog")
             showReservationDialog(date)
         }
     }
 }
 
+@Entity(tableName = "reservations")
 data class ReservationInfo(
+    @PrimaryKey val date: LocalDate,
     val hour: Int,
     val minute: Int,
     val courtNumber: String,
     val isReservationDay: Boolean,
     val memo: String
 )
+
+@Dao
+interface ReservationDao {
+    @Query("SELECT * FROM reservations")
+    fun getAllReservations(): List<ReservationInfo>
+
+    @Query("SELECT * FROM reservations WHERE date = :date")
+    fun getReservation(date: LocalDate): ReservationInfo?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(reservation: ReservationInfo)
+
+    @Delete
+    fun delete(reservation: ReservationInfo)
+
+    @Query("SELECT * FROM reservations")
+    fun getAllReservationsForDebug(): List<ReservationInfo>
+}
+
+@Database(entities = [ReservationInfo::class], version = 1)
+@TypeConverters(Converters::class)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun reservationDao(): ReservationDao
+
+    companion object {
+        private var instance: AppDatabase? = null
+
+        fun getInstance(context: Context): AppDatabase {
+            if (instance == null) {
+                instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "reservation_database"
+                ).build()
+            }
+            return instance!!
+        }
+    }
+}
+
+class Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): LocalDate? {
+        return value?.let { LocalDate.ofEpochDay(it) }
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: LocalDate?): Long? {
+        return date?.toEpochDay()
+    }
+}
