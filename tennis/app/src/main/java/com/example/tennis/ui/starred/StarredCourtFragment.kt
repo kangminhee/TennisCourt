@@ -9,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.tennis.R
-import com.example.tennis.ui.starred.placeholder.PlaceholderContent
+import com.example.tennis.data.SharedPreferencesHelper
+import com.example.tennis.ui.courts.MyCourtRecyclerViewAdapter
+import com.example.tennis.ui.courts.placeholder.PlaceholderContent
 
 class StarredCourtFragment : Fragment() {
 
@@ -30,14 +32,18 @@ class StarredCourtFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_starred_list, container, false)
 
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyStarredCourtRecyclerViewAdapter(PlaceholderContent.ITEMS, requireContext())
+        val recyclerView = view.findViewById<RecyclerView>(R.id.starred_court_list)
+        with(recyclerView) {
+            layoutManager = when {
+                columnCount <= 1 -> LinearLayoutManager(context)
+                else -> GridLayoutManager(context, columnCount)
             }
+
+            val starredItems = PlaceholderContent.ITEMS.filter {
+                SharedPreferencesHelper.isCourtStarred(requireContext(), it.id)
+            }
+
+            adapter = MyStarredCourtRecyclerViewAdapter(starredItems, requireContext())
         }
         return view
     }
