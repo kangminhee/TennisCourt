@@ -9,7 +9,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.example.tennis.R
 import com.example.tennis.data.SharedPreferencesHelper
-import com.example.tennis.ui.starred.placeholder.PlaceholderContent.PlaceholderItem
+import com.example.tennis.ui.courts.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.tennis.databinding.FragmentStarredBinding
 
 class MyStarredCourtRecyclerViewAdapter(
@@ -38,13 +38,17 @@ class MyStarredCourtRecyclerViewAdapter(
 
         // 별 모양 버튼 클릭 시 즐겨찾기 추가/제거 로직
         holder.starButton.setOnClickListener {
-            if (isStarred) {
-                SharedPreferencesHelper.removeCourtFromStars(context, item.id)
-                holder.starButton.setImageResource(R.drawable.ic_notifications_black_24dp)
-            } else {
+            val newStarredState = !isStarred
+
+            if (newStarredState) {
                 SharedPreferencesHelper.addCourtToStars(context, item.id)
-                holder.starButton.setImageResource(R.drawable.ic_notifications_white_24dp)
+//                holder.starButton.setImageResource(R.drawable.ic_notifications_black_24dp)
+            } else {
+                SharedPreferencesHelper.removeCourtFromStars(context, item.id)
+//                holder.starButton.setImageResource(R.drawable.ic_notifications_white_24dp)
             }
+            notifyItemChanged(position)
+            notifyDataSetChanged()
         }
     }
 
