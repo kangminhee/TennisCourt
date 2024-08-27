@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.tennis.R
-import com.example.tennis.ui.courts.placeholder.PlaceholderContent
+import com.example.tennis.data.PlaceholderContent
 import com.example.tennis.databinding.FragmentItemBinding
 import java.io.IOException
 
@@ -24,33 +24,60 @@ class MyItemDialogRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
 
+        // 예약 상태에 따라 텍스트 설정
         if (item.state) {
             holder.contentView.text = "예약 가능"
         } else {
             holder.contentView.text = "예약 중이 아님"
         }
 
-        val imageFileName = "s" + item.id.removePrefix("S") //+ ".jpg"
-        holder.idView.text = imageFileName //item.svcname
+        // item.id에서 'S' 제거 (예: "S1234" -> "1234")
+        val imageFileName = "s" + item.id.removePrefix("S") // 예: "s1234"
+        holder.idView.text = imageFileName // item.svcname 대신 imageFileName 설정
 
-        // item.id에서 'S' 제거 (예: "S132312" -> "132312")
+        // 이미지 리소스를 drawable에서 불러오기
+        val imageResId = holder.itemView.context.resources.getIdentifier(imageFileName, "drawable", holder.itemView.context.packageName)
 
-        try {
-            // assets에서 이미지 파일을 불러와서 Drawable로 변환
-            val inputStream = holder.itemView.context.assets.open(imageFileName)
-            val drawable = Drawable.createFromStream(inputStream, null)
-
-            // 이미지 설정
-            holder.imageView.setImageDrawable(drawable)
-
-            // 스트림 닫기
-            inputStream.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-            // 이미지 로드 실패 시 기본 이미지 설정
+        if (imageResId != 0) {
+            // 리소스 ID가 유효한 경우 이미지 설정
+            holder.imageView.setImageResource(imageResId)
+        } else {
+            // 이미지 리소스를 찾을 수 없는 경우 기본 이미지 설정
             holder.imageView.setImageResource(R.drawable.red_rounded_box)
         }
     }
+
+
+//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+//        val item = values[position]
+//
+//        if (item.state) {
+//            holder.contentView.text = "예약 가능"
+//        } else {
+//            holder.contentView.text = "예약 중이 아님"
+//        }
+//
+//        val imageFileName = "s" + item.id.removePrefix("S") //+ ".jpg"
+//        holder.idView.text = imageFileName //item.svcname
+//
+//        // item.id에서 'S' 제거 (예: "S132312" -> "132312")
+//
+//        try {
+//            // assets에서 이미지 파일을 불러와서 Drawable로 변환
+//            val inputStream = holder.itemView.context.assets.open(imageFileName)
+//            val drawable = Drawable.createFromStream(inputStream, null)
+//
+//            // 이미지 설정
+//            holder.imageView.setImageDrawable(drawable)
+//
+//            // 스트림 닫기
+//            inputStream.close()
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//            // 이미지 로드 실패 시 기본 이미지 설정
+//            holder.imageView.setImageResource(R.drawable.red_rounded_box)
+//        }
+//    }
 
 
 //    override fun onBindViewHolder(holder: ViewHolder, position: Int) {

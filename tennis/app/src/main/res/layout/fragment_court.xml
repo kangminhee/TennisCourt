@@ -52,14 +52,14 @@
             android:id="@+id/court_btn_info"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:textSize="10dp"
+            android:textSize="14dp"
             android:text="시설 정보" />
 
         <Button
             android:id="@+id/court_btn_reserv"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:textSize="5dp"
+            android:textSize="8dp"
             android:text="예약 사이트로 이동" />
 
     </LinearLayout>

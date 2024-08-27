@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:layout_marginRight="4dp">
 
     <ImageButton
         android:id="@+id/star_btn"
-        android:layout_width="34dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_notifications_black_24dp" />
@@ -28,7 +28,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/item_number"
+            android:id="@+id/text_court_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -36,7 +36,7 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/text_court_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이건 테스트고" />
@@ -52,15 +52,15 @@
             android:id="@+id/court_btn_info"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:textSize="10dp"
+            android:textSize="14dp"
             android:text="시설 정보" />
 
         <Button
             android:id="@+id/court_btn_reserv"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:textSize="10dp"
-            android:text="예약하기" />
+            android:textSize="8dp"
+            android:text="예약 사이트로 이동" />
 
     </LinearLayout>
 </LinearLayout>
