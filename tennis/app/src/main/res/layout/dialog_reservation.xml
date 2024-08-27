@@ -24,6 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
             android:hint="코트 번호" />
 
         <TextView
@@ -45,20 +47,24 @@
                 android:id="@+id/rbReservationDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="예약일" />
+                android:text="예약일"
+                android:textColor="@android:color/black" />
 
             <RadioButton
                 android:id="@+id/rbBookingDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="예매일" />
+                android:text="예매일"
+                android:textColor="@android:color/black" />
         </RadioGroup>
 
         <EditText
             android:id="@+id/etMemo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="메모" />
+            android:hint="메모"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,11 +73,11 @@
             android:textSize="18sp"
             android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
+
         <TimePicker
             android:id="@+id/timePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
 
     </LinearLayout>
 </ScrollView>

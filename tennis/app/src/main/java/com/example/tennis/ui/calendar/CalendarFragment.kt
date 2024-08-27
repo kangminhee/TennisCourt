@@ -58,6 +58,9 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             showDatePickerDialog()
         }
 
+            // 월 표시 텍스트 색상을 검정색으로 변경
+            calendarView.setHeaderTextAppearance(R.style.CustomHeaderTextAppearance)
+
         viewModel.reservations.observe(viewLifecycleOwner) {
             updateCalendarView()
         }

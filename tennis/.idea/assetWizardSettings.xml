@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -18,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../CookAndroid/SDK/icons/material/materialicons/star/baseline_star_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../CookAndroid/SDK/icons/material/materialicons/blur_on/baseline_blur_on_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +33,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="fff400" />
-                            <entry key="outputName" value="baseline_star_24" />
+                            <entry key="outputName" value="baseline_blur_on_24" />
                             <entry key="sourceFile" value="C:\root\TennisCourt\tennis" />
                           </map>
                         </option>

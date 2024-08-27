@@ -48,8 +48,10 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="0dp"
-            app:mcv_selectionColor="@color/teal_200"
-            app:mcv_showOtherDates="all" />
+            app:mcv_selectionColor="#00F"
+            app:mcv_calendarMode="month"
+            app:mcv_showOtherDates="all"
+            app:mcv_headerTextAppearance="@style/CustomHeaderTextAppearance"  />
 
 
 </RelativeLayout>
