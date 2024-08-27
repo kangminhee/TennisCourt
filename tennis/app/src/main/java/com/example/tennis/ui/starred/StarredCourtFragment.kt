@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.tennis.R
 import com.example.tennis.data.SharedPreferencesHelper
-import com.example.tennis.ui.courts.placeholder.PlaceholderContent
+import com.example.tennis.data.PlaceholderContent
 
 class StarredCourtFragment : Fragment() {
 
@@ -38,7 +38,7 @@ class StarredCourtFragment : Fragment() {
                 else -> GridLayoutManager(context, columnCount)
             }
 
-            val starredItems = PlaceholderContent.ITEMS.filter {
+            val starredItems = PlaceholderContent.PLACE_ITEMS.filter {
                 SharedPreferencesHelper.isCourtStarred(requireContext(), it.place)
             }
 

@@ -1,4 +1,4 @@
-package com.example.tennis.ui.courts.placeholder
+package com.example.tennis.data
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
@@ -24,8 +24,16 @@ object PlaceholderContent {
     val ITEMS: MutableList<PlaceholderItem> = ArrayList()
     val ITEM_MAP: MutableMap<String, PlaceholderItem> = HashMap()
 
+    val PLACE_ITEMS: MutableList<PlaceholderItem> = ArrayList()
+    val PLACE_ITEM_MAP: MutableMap<String, PlaceholderItem> = HashMap()
+
+
     //courts (areanm)
     val uniquePlaces: MutableList<String> = ArrayList()
+
+    fun groupByPlace( place: String ): List<PlaceholderItem> {
+        return ITEMS.filter { it.place == place }
+    }
 
     fun importData(onDataLoaded: () -> Unit, onLoadingStatusChanged: (Boolean) -> Unit){
         isLoading = true
@@ -66,30 +74,17 @@ object PlaceholderContent {
             if (placeSet.add(placeName)) {
                 uniquePlaces.add(placeName)
                 val item = createPlaceholderItem(court)
-                addItem(item)
+                addPlaceItem(item)
             }
-
-
+            val item = createPlaceholderItem(court)
+            addItem(item)
         }
     }
 
-
-//    private fun parseData() {
-//        for (i in 0 until rows.length()) {
-//            val court = rows.getJSONObject(i)
-//            val item = createPlaceholderItem(court)
-//            addItem(item)
-//        }
-//    }
-
-//    private val COUNT = jsonObject.getJSONObject("ListPublicReservationSport").getInt("list_total_count")
-//    init {
-//        for (i in 1..COUNT) {
-//            court = rows.getJSONObject(i)
-//            val item = createPlaceholderItem(court)
-//            addItem(item)
-//        }
-//    }
+    private fun addPlaceItem(item: PlaceholderItem) {
+        PLACE_ITEMS.add(item)
+        PLACE_ITEM_MAP[item.id] = item
+    }
 
     private fun addItem(item: PlaceholderItem) {
         ITEMS.add(item)
@@ -104,6 +99,7 @@ object PlaceholderContent {
             court.getString("DTLCONT"),
             court.getString("AREANM"),
             court.getString("AREANM") != "예약마감",
+            court.getString("SVCNM")
         )
     }
 
@@ -113,6 +109,7 @@ object PlaceholderContent {
         val payment: Boolean,
         val details: String,
         val area: String,
-        val state: Boolean
+        val state: Boolean,
+        val svcname: String
     )
 }

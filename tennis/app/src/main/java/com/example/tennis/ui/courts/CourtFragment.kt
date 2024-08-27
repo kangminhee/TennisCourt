@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.tennis.R
-import com.example.tennis.ui.courts.placeholder.PlaceholderContent
+import com.example.tennis.data.PlaceholderContent
 
 class CourtFragment : Fragment() {
 
@@ -35,7 +35,7 @@ class CourtFragment : Fragment() {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
             }
-            adapter = MyCourtRecyclerViewAdapter(PlaceholderContent.ITEMS, requireContext())
+            adapter = MyCourtRecyclerViewAdapter(PlaceholderContent.PLACE_ITEMS, requireContext())
         }
         return view
     }

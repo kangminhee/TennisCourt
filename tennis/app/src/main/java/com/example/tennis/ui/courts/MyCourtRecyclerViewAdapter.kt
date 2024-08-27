@@ -1,21 +1,21 @@
 package com.example.tennis.ui.courts
 
-import android.content.Intent
-import android.net.Uri
-
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.tennis.R
+import com.example.tennis.data.PlaceholderContent
+import com.example.tennis.data.PlaceholderContent.PLACE_ITEMS
 
-import com.example.tennis.ui.courts.placeholder.PlaceholderContent.PlaceholderItem
+import com.example.tennis.data.PlaceholderContent.PlaceholderItem
 import com.example.tennis.data.SharedPreferencesHelper
 import com.example.tennis.databinding.FragmentCourtBinding
+import com.example.tennis.ui.dialog.RecyclerDialogFragment
 
 class MyCourtRecyclerViewAdapter(
     private val places: List<PlaceholderItem>,
@@ -37,7 +37,7 @@ class MyCourtRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = places[position]
         holder.nameView.text = item.place
-        holder.areaView.text = item.id
+        holder.areaView.text = item.area
 
         val isStarred = SharedPreferencesHelper.isCourtStarred(context, item.place)
         holder.starButton.setImageResource(if (isStarred) R.drawable.ic_notifications_black_24dp else R.drawable.ic_notifications_white_24dp)
@@ -58,6 +58,21 @@ class MyCourtRecyclerViewAdapter(
         }
 
 //        Intent browserIntent = new Intent(i)
+
+        holder.itemView.setOnClickListener {
+            val itemsForSelectedPlace = PlaceholderContent.groupByPlace(item.place)
+
+            // DialogFragment 호출 시 필터링된 아이템 리스트 전달
+            val dialog = RecyclerDialogFragment.newInstance(itemsForSelectedPlace)
+            dialog.show((holder.itemView.context as AppCompatActivity).supportFragmentManager, "RecyclerDialog")
+        }
+
+//        holder.itemView.setOnClickListener {
+//            val filteredItems = ITEMS.filter { it.place == item.place }
+//            // 아이템 클릭 시 DialogFragment 호출
+//            val dialog = RecyclerDialogFragment.newInstance(ArrayList(filteredItems))
+//            dialog.show((holder.itemView.context as AppCompatActivity).supportFragmentManager, "RecyclerDialog")
+//        }
     }
 
     override fun getItemCount(): Int = places.size
