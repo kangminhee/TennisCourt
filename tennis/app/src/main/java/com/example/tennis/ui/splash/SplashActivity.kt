@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tennis.MainActivity
 import com.example.tennis.R
-import com.example.tennis.ui.courts.placeholder.PlaceholderContent
+import com.example.tennis.data.PlaceholderContent
 
 class SplashActivity : AppCompatActivity() {
 
