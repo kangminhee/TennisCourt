@@ -41,7 +41,7 @@ class MyStarredCourtRecyclerViewAdapter(
         holder.nameView.text = item.place
         holder.areaView.text = item.area
 
-        val isStarred = SharedPreferencesHelper.isCourtStarred(context, item.id)
+        val isStarred = SharedPreferencesHelper.isCourtStarred(context, item.place)
         holder.starButton.setImageResource(if (isStarred) R.drawable.ic_notifications_black_24dp else R.drawable.ic_notifications_white_24dp)
 
         // 별 모양 버튼 클릭 시 즐겨찾기 추가/제거 로직
@@ -49,10 +49,10 @@ class MyStarredCourtRecyclerViewAdapter(
             val newStarredState = !isStarred
 
             if (newStarredState) {
-                SharedPreferencesHelper.addCourtToStars(context, item.id)
+                SharedPreferencesHelper.addCourtToStars(context, item.place)
 //                holder.starButton.setImageResource(R.drawable.ic_notifications_black_24dp)
             } else {
-                SharedPreferencesHelper.removeCourtFromStars(context, item.id)
+                SharedPreferencesHelper.removeCourtFromStars(context, item.place)
 //                holder.starButton.setImageResource(R.drawable.ic_notifications_white_24dp)
             }
             notifyItemChanged(position)

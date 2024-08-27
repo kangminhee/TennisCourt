@@ -1,9 +1,6 @@
 package com.example.tennis.ui.courts.placeholder
 
 import android.util.Log
-import com.example.tennis.ui.map.MapViewFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -11,7 +8,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.ArrayList
 import java.util.HashMap
 
 object PlaceholderContent {
@@ -29,8 +25,7 @@ object PlaceholderContent {
     val ITEM_MAP: MutableMap<String, PlaceholderItem> = HashMap()
 
     //courts (areanm)
-    val AREA_ITEM = ITEMS.groupBy { it.place }.toMap()
-
+    val uniquePlaces: MutableList<String> = ArrayList()
 
     fun importData(onDataLoaded: () -> Unit, onLoadingStatusChanged: (Boolean) -> Unit){
         isLoading = true
@@ -63,12 +58,29 @@ object PlaceholderContent {
     }
 
     private fun parseData() {
+        val placeSet = HashSet<String>()  // 중복 제거를 위한 Set 사용
         for (i in 0 until rows.length()) {
             val court = rows.getJSONObject(i)
-            val item = createPlaceholderItem(court)
-            addItem(item)
+            val placeName = court.getString("PLACENM")
+
+            if (placeSet.add(placeName)) {
+                uniquePlaces.add(placeName)
+                val item = createPlaceholderItem(court)
+                addItem(item)
+            }
+
+
         }
     }
+
+
+//    private fun parseData() {
+//        for (i in 0 until rows.length()) {
+//            val court = rows.getJSONObject(i)
+//            val item = createPlaceholderItem(court)
+//            addItem(item)
+//        }
+//    }
 
 //    private val COUNT = jsonObject.getJSONObject("ListPublicReservationSport").getInt("list_total_count")
 //    init {

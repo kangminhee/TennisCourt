@@ -39,7 +39,7 @@ class StarredCourtFragment : Fragment() {
             }
 
             val starredItems = PlaceholderContent.ITEMS.filter {
-                SharedPreferencesHelper.isCourtStarred(requireContext(), it.id)
+                SharedPreferencesHelper.isCourtStarred(requireContext(), it.place)
             }
 
             adapter = MyStarredCourtRecyclerViewAdapter(starredItems, requireContext())
