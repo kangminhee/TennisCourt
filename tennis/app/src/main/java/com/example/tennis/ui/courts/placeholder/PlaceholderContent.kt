@@ -104,6 +104,7 @@ object PlaceholderContent {
             court.getString("DTLCONT"),
             court.getString("AREANM"),
             court.getString("AREANM") != "예약마감",
+            court.getString("SVCURL")  // SVCURL 필드 추가
         )
     }
 
@@ -113,6 +114,7 @@ object PlaceholderContent {
         val payment: Boolean,
         val details: String,
         val area: String,
-        val state: Boolean
+        val state: Boolean,
+        val svcUrl: String
     )
 }
