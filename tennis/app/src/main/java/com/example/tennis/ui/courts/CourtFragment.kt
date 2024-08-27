@@ -35,7 +35,7 @@ class CourtFragment : Fragment() {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
             }
-            adapter = MyCourtRecyclerViewAdapter(PlaceholderContent.ITEMS, requireContext())
+            adapter = MyCourtRecyclerViewAdapter(PlaceholderContent.PLACE_ITEMS, requireContext())
         }
         return view
     }

@@ -88,7 +88,7 @@ class MyCourtRecyclerViewAdapter(
         val infoButton: TextView = binding.courtBtnInfo
         val reserveButton: TextView = binding.courtBtnReserv
 
-    
+
 
 
 

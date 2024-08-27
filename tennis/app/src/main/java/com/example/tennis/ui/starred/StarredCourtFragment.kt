@@ -38,7 +38,7 @@ class StarredCourtFragment : Fragment() {
                 else -> GridLayoutManager(context, columnCount)
             }
 
-            val starredItems = PlaceholderContent.ITEMS.filter {
+            val starredItems = PlaceholderContent.PLACE_ITEMS.filter {
                 SharedPreferencesHelper.isCourtStarred(requireContext(), it.place)
             }
 
