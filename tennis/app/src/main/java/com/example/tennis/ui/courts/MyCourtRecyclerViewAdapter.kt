@@ -9,10 +9,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tennis.R
-import com.example.tennis.data.PlaceholderContent
-import com.example.tennis.data.PlaceholderContent.PLACE_ITEMS
+import com.example.tennis.ui.courts.placeholder.PlaceholderContent
 
-import com.example.tennis.data.PlaceholderContent.PlaceholderItem
+import com.example.tennis.ui.courts.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.tennis.data.SharedPreferencesHelper
 import com.example.tennis.databinding.FragmentCourtBinding
 import com.example.tennis.ui.dialog.RecyclerDialogFragment

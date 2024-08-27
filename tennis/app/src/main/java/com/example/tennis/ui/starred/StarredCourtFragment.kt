@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.tennis.R
 import com.example.tennis.data.SharedPreferencesHelper
-import com.example.tennis.data.PlaceholderContent
+import com.example.tennis.ui.courts.placeholder.PlaceholderContent
 
 class StarredCourtFragment : Fragment() {
 

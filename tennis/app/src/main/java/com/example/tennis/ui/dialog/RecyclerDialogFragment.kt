@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tennis.R
-import com.example.tennis.data.PlaceholderContent
+import com.example.tennis.ui.courts.placeholder.PlaceholderContent
 
 class RecyclerDialogFragment : DialogFragment() {
 

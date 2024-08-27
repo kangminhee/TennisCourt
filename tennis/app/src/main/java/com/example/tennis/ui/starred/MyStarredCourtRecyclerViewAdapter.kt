@@ -8,7 +8,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.example.tennis.R
 import com.example.tennis.data.SharedPreferencesHelper
-import com.example.tennis.data.PlaceholderContent
+import com.example.tennis.ui.courts.placeholder.PlaceholderContent
 import com.example.tennis.databinding.FragmentStarredBinding
 
 class MyStarredCourtRecyclerViewAdapter(

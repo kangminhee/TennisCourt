@@ -1,4 +1,4 @@
-package com.example.tennis.data
+package com.example.tennis.ui.courts.placeholder
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +13,7 @@ import java.util.HashMap
 object PlaceholderContent {
 
     val url = "http://openapi.seoul.go.kr:8088/576e4e6c6779656c36355368686444/json/ListPublicReservationSport/1/300/테니스장"
-//    lateinit var jsonObject: JSONObject
+    //    lateinit var jsonObject: JSONObject
     lateinit var rows: JSONArray
 //    lateinit var court: JSONObject
 
