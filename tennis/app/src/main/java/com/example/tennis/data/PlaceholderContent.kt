@@ -98,7 +98,7 @@ object PlaceholderContent {
             court.getString("PAYATNM") == "유료",
             court.getString("DTLCONT"),
             court.getString("AREANM"),
-            court.getString("AREANM") != "예약마감",
+            court.getString("SVCSTATNM") != "예약마감",
             court.getString("SVCNM")
         )
     }
