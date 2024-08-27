@@ -1,3 +1,4 @@
+
 package com.example.tennis.ui.courts.placeholder
 
 import android.util.Log
@@ -24,16 +25,8 @@ object PlaceholderContent {
     val ITEMS: MutableList<PlaceholderItem> = ArrayList()
     val ITEM_MAP: MutableMap<String, PlaceholderItem> = HashMap()
 
-    val PLACE_ITEMS: MutableList<PlaceholderItem> = ArrayList()
-    val PLACE_ITEM_MAP: MutableMap<String, PlaceholderItem> = HashMap()
-
-
     //courts (areanm)
     val uniquePlaces: MutableList<String> = ArrayList()
-
-    fun groupByPlace( place: String ): List<PlaceholderItem> {
-        return ITEMS.filter { it.place == place }
-    }
 
     fun importData(onDataLoaded: () -> Unit, onLoadingStatusChanged: (Boolean) -> Unit){
         isLoading = true
@@ -74,17 +67,30 @@ object PlaceholderContent {
             if (placeSet.add(placeName)) {
                 uniquePlaces.add(placeName)
                 val item = createPlaceholderItem(court)
-                addPlaceItem(item)
+                addItem(item)
             }
-            val item = createPlaceholderItem(court)
-            addItem(item)
+
+
         }
     }
 
-    private fun addPlaceItem(item: PlaceholderItem) {
-        PLACE_ITEMS.add(item)
-        PLACE_ITEM_MAP[item.id] = item
-    }
+
+//    private fun parseData() {
+//        for (i in 0 until rows.length()) {
+//            val court = rows.getJSONObject(i)
+//            val item = createPlaceholderItem(court)
+//            addItem(item)
+//        }
+//    }
+
+//    private val COUNT = jsonObject.getJSONObject("ListPublicReservationSport").getInt("list_total_count")
+//    init {
+//        for (i in 1..COUNT) {
+//            court = rows.getJSONObject(i)
+//            val item = createPlaceholderItem(court)
+//            addItem(item)
+//        }
+//    }
 
     private fun addItem(item: PlaceholderItem) {
         ITEMS.add(item)
@@ -98,8 +104,8 @@ object PlaceholderContent {
             court.getString("PAYATNM") == "유료",
             court.getString("DTLCONT"),
             court.getString("AREANM"),
-            court.getString("SVCSTATNM") != "예약마감",
-            court.getString("SVCNM")
+            court.getString("AREANM") != "예약마감",
+            court.getString("SVCURL")  // SVCURL 필드 추가
         )
     }
 
@@ -110,6 +116,6 @@ object PlaceholderContent {
         val details: String,
         val area: String,
         val state: Boolean,
-        val svcname: String
+        val svcUrl: String
     )
 }
