@@ -23,7 +23,6 @@ import com.example.tennis.data.PlaceholderContent
 import com.example.tennis.databinding.FragmentStarredBinding
 import com.example.tennis.ui.dialog.RecyclerDialogFragment
 import com.example.tennis.databinding.DialogCourtInfoBinding
-import com.example.tennis.ui.courts.placeholder.PlaceholderContent
 import com.example.tennis.ui.courts.MyCourtRecyclerViewAdapter
 
 class MyStarredCourtRecyclerViewAdapter(
