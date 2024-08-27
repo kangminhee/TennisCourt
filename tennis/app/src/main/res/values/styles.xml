@@ -1,0 +1,10 @@
+<resources>
+    <style name="CustomCalendarViewStyle">
+        <item name="mcv_headerTextAppearance">@style/CustomHeaderTextAppearance</item>
+    </style>
+
+    <style name="CustomHeaderTextAppearance" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
